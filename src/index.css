@@ -1,13 +1,64 @@
-body {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  outline: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --clr-background: hsl(216, 12%, 84%);
+  --clr-preview: hsl(0, 100%, 100%);
+  --clr-form: hsl(0, 100%, 100%);
+  --clr-footer: hsl(210, 20%, 98%);
+  --clr-header: hsl(215, 28%, 17%);
+
+  --clr-button--primary: hsl(243, 75%, 59%);
+  --clr-button--secondary: transparent;
+
+  --clr-input: hsl(216, 12%, 84%);
+  --clr-input--focus: hsl(243, 75%, 59%);
+  --clr-list-item: hsl(218, 11%, 65%);
+
+  --clr-top--dark: hsl(0, 0, 0);
+  --clr-top--light: hsl(0, 100%, 100%);
+
+  --clr-black-1: hsla(0, 0%, 0%, 0.1);
+  --clr-black-15: hsla(0, 0%, 0%, 0.15);
+  --clr-black-3: hsla(0, 0%, 0%, 0.3);
+  --clr-black-8: hsla(0, 0%, 0%, 0.8);
+  --clr-black: hsl(0, 0%, 0%);
+
+  --shadow-icon: 0 2px 7px 0 var(--clr-black-15);
+  --shadow--states-sm: 0 0 0 1px;
+  --shadow--states-lg: 0 0 0 2px;
+
+  --br-pill: 3rem;
+  --br-round: 0.2rem;
+  --br-circle: 50%;
+  --fs-h1: 2rem;
+  --fs-h2: 1.9rem;
+  --fs-h3: 2rem;
+  --fs-lg: 1.8rem;
+  --fs-md: 1.5rem;
+  --fs-sm: 1.2rem;
+
+  --fw-sm: 400;
+  --fw-md: 500;
+  --fw-lg: 800;
+
+  --ff-primary: 'inter', sans-serif;
+
+  --body-inline-padding: 2rem;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+}
+
+body {
+  font-family: var(--ff-primary);
 }
