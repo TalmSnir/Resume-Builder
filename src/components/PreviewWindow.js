@@ -1,14 +1,15 @@
 import React from 'react';
 import PreviewFooter from './PreviewFooter';
 import PreviewDoc from './PreviewDoc';
-import EducationDocSection from './DocSections/EducationDocSection';
-import PersonalInformationDocSection from './DocSections/PersonalInformationDocSection';
+
+import ContactInformationPreview from '../PreviewSections/ContactInformationPreview';
+
 function PreviewWindow() {
   return (
     <section className='preview__window section-container'>
+      <h1>preview</h1>
       <PreviewDoc>
-        <PersonalInformationDocSection />
-        <EducationDocSection />
+        <ContactInformationPreview />
       </PreviewDoc>
       <PreviewFooter />
     </section>

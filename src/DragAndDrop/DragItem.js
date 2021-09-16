@@ -55,7 +55,7 @@ function DragItem({
   };
   return (
     <div
-      className={`section-selectable__item section-selectable__item--used ${
+      className={`section-selectable__item--used ${
         isDragging ? 'dragging' : ''
       } ${isDraggingOver && !isDragging ? 'dragging-over' : ''}`}
       draggable='true'

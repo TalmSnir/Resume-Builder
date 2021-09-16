@@ -33,16 +33,19 @@
   --shadow-icon: 0 2px 7px 0 var(--clr-black-15);
   --shadow--states-sm: 0 0 0 1px;
   --shadow--states-lg: 0 0 0 2px;
+  --shadow-card--1: 0 0.5px 3px 0 var(--clr-black-15);
+  --shadow-card--2: 0 0.5px 6px 0 var(--clr-black-1);
+  --shadow-card: var(--shadow-card--1), var(--shadow-card--2);
 
   --br-pill: 3rem;
   --br-round: 0.2rem;
   --br-circle: 50%;
-  --fs-h1: 2rem;
+  --fs-h1: 1rem;
   --fs-h2: 1.9rem;
   --fs-h3: 2rem;
   --fs-lg: 1.8rem;
   --fs-md: 1.5rem;
-  --fs-sm: 1.2rem;
+  --fs-sm: 0.8rem;
 
   --fw-sm: 400;
   --fw-md: 500;

@@ -18,28 +18,29 @@ function ImageForm() {
         alt='avatar'
         className={`avatar__display ${!isAvatarRound && 'square'}`}
       />
-      <label htmlFor='avatar__shape__switch' className='label--row '>
-        round
-        <input
-          type='checkbox'
-          role='switch'
-          name='avatar__shape__switch'
-          id='avatar__shape__switch'
-          onChange={e => handleUpdateImageShape(e)}
-        />
-        square
-      </label>
-      <label htmlFor='avatar'>
-        upload image
-        <input
-          type='file'
-          accept='image/*'
-          name='avatar'
-          id='avatar'
-          className='avatar__input'
-          onChange={e => handleImageUpload(e)}
-        />
-      </label>
+      <div className='avatar__configuration'>
+        <label htmlFor='avatar__shape__switch' className='label--row '>
+          <input
+            type='checkbox'
+            role='switch'
+            name='avatar__shape__switch'
+            id='avatar__shape__switch'
+            onChange={e => handleUpdateImageShape(e)}
+          />
+          round/ square
+        </label>
+        <label htmlFor='avatar'>
+          <span>upload image</span>
+          <input
+            type='file'
+            accept='image/*'
+            name='avatar'
+            id='avatar'
+            className='avatar__input'
+            onChange={e => handleImageUpload(e)}
+          />
+        </label>
+      </div>
     </div>
   );
 }

@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import { MdDragHandle, MdEdit } from 'react-icons/md';
-import { FaTrash } from 'react-icons/fa';
+import React, { useState, useContext } from 'react';
+import { GlobalContext } from '../GlobalState';
+import Icon from '../components/Icon';
+import Button from '../components/Button';
 import DragItem from '../DragAndDrop/DragItem';
-const SelectedSectionsList = ({ selectedItems, handleRemove, handleEdit }) => {
+const SelectedSectionsList = () => {
   const [dragItem, setDragItem] = useState(null);
   const [draggedOverItem, setDraggedOverItem] = useState(null);
+  const context = useContext(GlobalContext);
+  const { selectedSections, handleRemoveSelection } = context;
 
   return (
     <div>
       <h1>section selected</h1>
 
       <ul>
-        {selectedItems.map((item, id) => (
+        {selectedSections.map((item, id) => (
           <DragItem
             id={id}
             key={id}
@@ -22,14 +25,15 @@ const SelectedSectionsList = ({ selectedItems, handleRemove, handleEdit }) => {
             <li
               key={id}
               className='section-selectable__item section-selectable__item--used '>
-              <MdDragHandle className='icon--drag' />
+              <Icon name='dragHandle' className='icon--drag' />
               <span className='selectable__item__content'>{item}</span>
               <div className='selectable__item__edit-icons '>
-                <MdEdit />
-                <FaTrash
-                  className='icon--remove'
-                  onClick={() => handleRemove(item)}
-                />
+                <Button>
+                  <Icon name='edit' />
+                </Button>
+                <Button onClick={() => handleRemoveSelection(item)}>
+                  <Icon name='trash' className='icon--remove' />
+                </Button>
               </div>
             </li>
           </DragItem>
