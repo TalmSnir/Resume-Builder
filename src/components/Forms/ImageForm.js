@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
-import ReactLogo from './ProfileIcon.svg';
+import React, { useContext } from 'react';
+
+import { GlobalContext } from '../../GlobalState';
 function ImageForm() {
-  const [isAvatarRound, setIsAvatarRound] = useState(true);
-  const handleImageUpload = e => {
-    const image = document.querySelector('.avatar__display');
-    console.log(image);
-    console.log('fd');
-    image.src = URL.createObjectURL(e.target.files[0]);
-  };
-  const handleUpdateImageShape = () => {
-    setIsAvatarRound(!isAvatarRound);
-  };
+  const context = useContext(GlobalContext);
+  const { imageSrc, shape } = context.formFields.avatarImage;
+  const { handleUploadImage, handleChangedShapeImage } = context;
+
   return (
     <div className='avatar__wrapper'>
       <img
-        src={ReactLogo}
+        src={imageSrc}
         alt='avatar'
-        className={`avatar__display ${!isAvatarRound && 'square'}`}
+        className={`avatar__display ${shape === 'square' && 'square'}`}
       />
       <div className='avatar__configuration'>
         <label htmlFor='avatar__shape__switch' className='label--row '>
@@ -25,7 +20,8 @@ function ImageForm() {
             role='switch'
             name='avatar__shape__switch'
             id='avatar__shape__switch'
-            onChange={e => handleUpdateImageShape(e)}
+            checked={shape === 'square'}
+            onClick={e => handleChangedShapeImage(e)}
           />
           round/ square
         </label>
@@ -37,7 +33,7 @@ function ImageForm() {
             name='avatar'
             id='avatar'
             className='avatar__input'
-            onChange={e => handleImageUpload(e)}
+            onChange={e => handleUploadImage(e)}
           />
         </label>
       </div>

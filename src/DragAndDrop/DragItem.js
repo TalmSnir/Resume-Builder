@@ -1,68 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function DragItem({
   children,
-  setDragItem,
   setDraggedOverItem,
   draggedOverItem,
   dragItem,
-  id,
+  idx,
+
+  dragId,
+  handleDragSwitch,
 }) {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  useEffect(() => {
-    console.log(isDraggingOver, id);
-  }, [isDraggingOver, id]);
-  const handleDragStart = (e, setIsDragging) => {
-    const item = e.currentTarget;
-    e.dataTransfer.setData('text/html', item.innerHTML);
-    e.dataTransfer.effectAllowed = 'move';
 
-    setDragItem(item);
+  const handleDragStart = e => {
+    dragId.current = e.currentTarget.dataset.idx;
+    dragItem.current = e.currentTarget;
+
+    dragItem.current.addEventListener('ondrageend', handleDragEnd);
     setIsDragging(true);
   };
-  const handleDragEnter = (e, setIsDraggingOver) => {
+  const handleDragEnter = e => {
     e.preventDefault();
-    const item = e.currentTarget;
+    const itemOver = e.currentTarget;
 
-    setIsDraggingOver(true);
-    setDraggedOverItem(item);
+    handleDragSwitch(dragId.current, itemOver.dataset.idx);
+    dragItem.current.dataset.idx = itemOver.dataset.idx;
+    dragId.current = dragItem.current.dataset.idx;
   };
-  const handleDragLeave = (e, setIsDraggingOver) => {
-    e.preventDefault();
-    setIsDraggingOver(false);
-  };
-  const handleDrop = (e, setIsDragging, setIsDraggingOver) => {
+
+  const handleDrop = e => {
     e.preventDefault();
     e.stopPropagation();
-    e.dataTransfer.dropEffect = 'move';
-    if (draggedOverItem !== dragItem) {
-      dragItem.innerHTML = draggedOverItem.innerHTML;
-      draggedOverItem.innerHTML = e.dataTransfer.getData('text/html');
-    }
+
+    dragItem.current = null;
+    dragId.current = null;
     setIsDragging(false);
-    setIsDraggingOver(false);
-    setDragItem(null);
-    setDraggedOverItem(null);
   };
-  const handleDragEnd = (e, setIsDragging, setIsDraggingOver) => {
+  const handleDragEnd = e => {
     e.preventDefault();
-    e.dataTransfer.clearData();
+    dragItem.current.removeEventListener('ondragend', handleDragEnd);
+    dragItem.current = null;
+    dragId.current = null;
     setIsDragging(false);
-    setDragItem(null);
-    setDraggedOverItem(null);
-    setIsDraggingOver(false);
   };
   return (
     <div
       className={`section-selectable__item--used ${
         isDragging ? 'dragging' : ''
       } ${isDraggingOver && !isDragging ? 'dragging-over' : ''}`}
+      data-idx={idx}
       draggable='true'
-      onDragStart={e => handleDragStart(e, setIsDragging)}
-      onDragEnd={e => handleDragEnd(e, setIsDragging, setIsDraggingOver)}
-      onDragLeave={e => handleDragLeave(e, setIsDraggingOver)}
-      onDragEnter={e => handleDragEnter(e, setIsDraggingOver)}
+      onDragStart={handleDragStart}
+      onDragEnter={handleDragEnter}
       onDrop={e => handleDrop(e, setIsDragging, setIsDraggingOver)}
       onDragOver={e => e.preventDefault()}>
       {children}

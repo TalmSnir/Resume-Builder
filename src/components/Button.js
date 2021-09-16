@@ -2,10 +2,11 @@ import React from 'react';
 
 import Icon from './Icon';
 import classNames from 'classnames';
-function Button({ children, onClick, type, iconName, primary, secondary }) {
+function Button({ children, onClick, iconName, primary, secondary, icon }) {
   const className = classNames('btn', {
     'btn--primary': primary,
     'btn--secondary': secondary,
+    'btn--icon': icon,
   });
   return (
     <button className={className} onClick={onClick}>

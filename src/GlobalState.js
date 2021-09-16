@@ -1,7 +1,8 @@
 import React, { createContext, useReducer } from 'react';
 const initialState = {
-  selectedSections: ['aboutMe', 'contactInformation', 'skills'],
-  unSelectedSections: ['avatarImage', 'projects', 'education', 'socialLinks'],
+  formToShow: 'contactInformation',
+  selectedSections: ['about me', 'contact information', 'skills', 'experience'],
+  unSelectedSections: ['avatar image', 'projects', 'education', 'social links'],
   formFields: {
     contactInformation: {
       firstName: 'Jon',
@@ -39,6 +40,9 @@ const ACTIONS = {
   HANDLE_REMOVE_SELECTION_FROM_UNSELECTED:
     'handleRemoveSelectionFromUnSelected',
   HANDLE_EDIT_SELECTION: 'handleEditSelection',
+  HANDLE_CHANGED_SHAPE_IMAGE: 'handleChangedShapeImage',
+  HANDLE_UPLOAD_IMAGE: 'handleUploadImage',
+  HANDLE_DRAG_SWITCH: 'handleDragSwitch',
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -68,8 +72,8 @@ const reducer = (state, action) => {
       return { ...state, unSelectedSections: newSelections };
     }
 
-    case ACTIONS.HANDLE_ADD_SELECTION_TO_UN_SELECTED: {
-      const newSelections = [...[state.unSelectedSections], action.payload];
+    case ACTIONS.HANDLE_ADD_SELECTION_TO_UNSELECTED: {
+      const newSelections = [...state.unSelectedSections, action.payload];
       return { ...state, unSelectedSections: newSelections };
     }
 
@@ -77,7 +81,38 @@ const reducer = (state, action) => {
       const newSelections = [...state.selectedSections, action.payload];
       return { ...state, selectedSections: newSelections };
     }
+    case ACTIONS.HANDLE_EDIT_SELECTION:
+      return { ...state, formToShow: action.payload };
+    case ACTIONS.HANDLE_UPLOAD_IMAGE:
+      return {
+        ...state,
+        formFields: {
+          ...state.formFields,
+          avatarImage: {
+            ...state.formFields.avatarImage,
+            imageSrc: action.payload,
+          },
+        },
+      };
+    case ACTIONS.HANDLE_CHANGED_SHAPE_IMAGE:
+      return {
+        ...state,
+        formFields: {
+          ...state.formFields,
+          avatarImage: {
+            ...state.formFields.avatarImage,
+            shape: action.payload,
+          },
+        },
+      };
+    case ACTIONS.HANDLE_DRAG_SWITCH:
+      const newSelectedSections = [...state.selectedSections];
+      const draggedItem = newSelectedSections[action.payload.draggedId];
+      newSelectedSections[action.payload.draggedId] =
+        newSelectedSections[action.payload.draggedOverId];
+      newSelectedSections[action.payload.draggedOverId] = draggedItem;
 
+      return { ...state, selectedSections: newSelectedSections };
     default:
       return state;
   }
@@ -115,21 +150,39 @@ export default function GlobalProvider({ children }) {
       payload: item,
     });
   }
-
-  //   const handleEditSelection = item => {
-
-  //   };
+  function handleDragSwitch(draggedId, draggedOverId) {
+    dispatch({
+      type: ACTIONS.HANDLE_DRAG_SWITCH,
+      payload: { draggedId, draggedOverId },
+    });
+  }
+  const handleEditSelection = sectionName => {
+    dispatch({ type: ACTIONS.HANDLE_EDIT_SELECTION, payload: sectionName });
+  };
+  const handleUploadImage = e => {
+    const imageSrc = URL.createObjectURL(e.target.files[0]);
+    dispatch({ type: ACTIONS.HANDLE_UPLOAD_IMAGE, payload: imageSrc });
+  };
+  const handleChangedShapeImage = e => {
+    const shape = e.target.checked ? 'square' : 'round';
+    dispatch({ type: ACTIONS.HANDLE_CHANGED_SHAPE_IMAGE, payload: shape });
+  };
   return (
     <GlobalContext.Provider
       value={{
         unSelectedSections: state.unSelectedSections,
         selectedSections: state.selectedSections,
         formFields: state.formFields,
+        formToShow: state.formToShow,
+
         handleChangeInput,
         handleOnSubmit,
-
+        handleEditSelection,
         handleRemoveSelection,
         handleAddSelection,
+        handleUploadImage,
+        handleChangedShapeImage,
+        handleDragSwitch,
       }}>
       {children}
     </GlobalContext.Provider>

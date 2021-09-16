@@ -1,7 +1,16 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../GlobalState';
 import Icon from './Icon';
-function Input({ type, name, sectionName, label, direction, iconName, href }) {
+function Input({
+  type,
+  name,
+  sectionName,
+  label,
+  direction,
+  iconName,
+  href,
+  iconLocation,
+}) {
   const context = useContext(GlobalContext);
   const value = context.formFields[sectionName][name];
   const { handleChangeInput } = context;
@@ -12,8 +21,8 @@ function Input({ type, name, sectionName, label, direction, iconName, href }) {
       {label}
       <div
         tabIndex={0}
-        className={`input__wrapper ${iconName && 'has-icon'} 
-        }`}>
+        className={`input__wrapper  
+         ${iconLocation === 'end' ? 'icon-end' : 'icon-start'}`}>
         {iconName ? <Icon name={iconName} /> : null}
         {href && <span>http://</span>}
         <input

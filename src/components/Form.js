@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../GlobalState';
 import ImageForm from './Forms/ImageForm';
 import ContactInformationForm from './Forms/ContactInformationForm';
 import SocialsLinksForm from './Forms/SocialsLinksForm';
@@ -8,37 +9,24 @@ import ExperienceForm from './Forms/ExperienceForm';
 import SkillsForm from './Forms/SkillsForm';
 import ProjectsForm from './Forms/ProjectsForm';
 function Form() {
-  // const handleToggleForms = ({ formName }) => {
-  //   let formToShow;
-  //   switch (formName) {
-  //     case 'avatar':
-  //       formToShow = <ImageForm />;
-  //       break;
-  //     case 'contact information':
-  //       formToShow = <ContactInformationForm />;
-  //       break;
-  //     default:
-  //       formToShow = <ContactInformationForm />;
-  //   }
-  // };
+  const context = useContext(GlobalContext);
+  const { formToShow } = context;
+
   return (
     <section className='form section-container'>
       <h1>edit details</h1>
       <form>
-        <ContactInformationForm />
+        {formToShow === 'about me' && <AboutMeForm />}
+        {formToShow === 'contact information' && <ContactInformationForm />}
+        {formToShow === 'avatar image' && <ImageForm />}
+        {formToShow === 'projects' && <ProjectsForm />}
+        {formToShow === 'skills' && <SkillsForm />}
+        {formToShow === 'experience' && <ExperienceForm />}
+        {formToShow === 'education' && <EducationForm />}
+        {formToShow === 'social links' && <SocialsLinksForm />}
       </form>
     </section>
   );
 }
 
 export default Form;
-// <EducationForm />
-// <ProjectsForm />
-// <ImageForm />
-//
-// <AboutMeForm />
-// <SocialsLinksForm />
-// <EducationForm />
-// <ExperienceForm />
-// <SkillsForm />
-// <ProjectsForm />

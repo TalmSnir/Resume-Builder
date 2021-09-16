@@ -6,7 +6,7 @@ import {
   FaSmileWink,
   FaShare,
   FaTrash,
-  FaPlus
+  FaPlus,
 } from 'react-icons/fa';
 import { MdDragHandle, MdEdit } from 'react-icons/md';
 
@@ -25,7 +25,7 @@ function Icon({ name }) {
     case 'plus':
       return <FaPlus />;
     case 'dragHandle':
-      return <MdDragHandle />;
+      return <MdDragHandle className='icon--drag' />;
     case 'edit':
       return <MdEdit />;
     default:

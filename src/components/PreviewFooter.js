@@ -3,10 +3,10 @@ import Button from './Button';
 function PreviewFooter() {
   return (
     <div className='card__footer preview__footer'>
-      <Button type={'secondary'} iconName={'share'}>
+      <Button secondary iconName='share'>
         share
       </Button>
-      <Button type={'primary'} iconName={'download'}>
+      <Button primary iconName='download'>
         download
       </Button>
     </div>

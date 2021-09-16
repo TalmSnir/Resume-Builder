@@ -64,4 +64,6 @@
 
 body {
   font-family: var(--ff-primary);
+  height: 100vh;
+  overflow-y: hidden;
 }
