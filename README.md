@@ -4,6 +4,9 @@
 
 ![branch status](https://img.shields.io/badge/status-in%20progress-brightgreen)
 
+## Live Site  
+[Resume Builder](https://devsresumebuilder.netlify.app/)
+
 ## Description 
 
 A tool to write developers portfolios fast and without wasting time on design.
@@ -18,6 +21,11 @@ download your portfolio.
 - no sign up required.
 - free to use.
 - pdf with searchable text and not a picture.
+
+## Stack  
+
+html, js, css, React-js
+
 
 ## Support The Creator
 
